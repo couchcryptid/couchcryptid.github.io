@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brendan Vinson — Software &amp; Infrastructure Engineer</title>
+<meta name="description" content="Software and Infrastructure Engineer. AWS, Terraform, HashiCorp, Go. Oklahoma City, open to remote US roles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #faf6ee;
+    --paper-deep: #f3ecde;
+    --ink: #1f1a14;
+    --ink-soft: #6b5e4f;
+    --ink-faint: #7a6c54;
+    --accent: #b8431f;
+    --rule: #d9cfbe;
+    --rule-soft: #ebe3d2;
+    --section-indent: 2.25rem;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    counter-reset: section;
+  }
+
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 4rem 3.5rem 5rem;
+  }
+
+  /* ---------- Header ---------- */
+
+  header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 0.5rem 2rem;
+    align-items: end;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 3rem;
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 144;
+    font-weight: 500;
+    font-size: clamp(2.75rem, 6vw, 4.25rem);
+    letter-spacing: -0.025em;
+    line-height: 0.95;
+    margin: 0;
+    color: var(--ink);
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .role-title {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 24;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    grid-column: 1;
+    grid-row: 2;
+    letter-spacing: 0.005em;
+  }
+
+  .contact {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-style: normal;
+    line-height: 1.85;
+    text-align: right;
+    color: var(--ink-soft);
+  }
+
+  .contact a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-faint);
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .contact a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* Keyboard focus — visible outline for keyboard-only users */
+
+  a:focus {
+    outline: none;
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* ---------- Inline icons ---------- */
+
+  .icon {
+    display: inline-block;
+    width: 0.9em;
+    height: 0.9em;
+    vertical-align: -0.12em;
+    margin-right: 0.45em;
+    flex-shrink: 0;
+  }
+
+  .icon-external {
+    width: 0.7em;
+    height: 0.7em;
+    margin-left: 0.3em;
+    margin-right: 0;
+    vertical-align: 0.02em;
+    opacity: 0.65;
+  }
+
+  /* ---------- Sections ---------- */
+
+  section {
+    counter-increment: section;
+    margin-bottom: 3.25rem;
+    padding-left: var(--section-indent);
+    page-break-inside: auto;
+  }
+
+  section > h2 {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 1.5rem 0;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    position: relative;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  section > h2::before {
+    content: counter(section, decimal-leading-zero);
+    color: var(--ink-faint);
+    letter-spacing: 0;
+    font-weight: 400;
+    position: absolute;
+    right: calc(100% + 1.25rem);
+    top: 0;
+  }
+
+  section > h2::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--rule-soft);
+    margin-bottom: 0.2em;
+  }
+
+  /* ---------- Profile ---------- */
+
+  .profile p {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.97rem;
+    line-height: 1.6;
+    color: var(--ink);
+    margin: 0 0 1.1rem 0;
+    max-width: 70ch;
+  }
+
+  /* ---------- Tech Stack ---------- */
+
+  .tech-grid {
+    display: grid;
+    grid-template-columns: minmax(140px, max-content) 1fr;
+    gap: 0.65rem 2rem;
+    align-items: baseline;
+  }
+
+  .tech-grid dt {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-align: right;
+    padding-top: 0.15em;
+  }
+
+  .tech-grid dd {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+
+  /* ---------- Experience / Projects ---------- */
+
+  .role {
+    margin-bottom: 2.25rem;
+    page-break-inside: auto;
+  }
+
+  .role-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.15rem;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  .role-header h3 {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 36;
+    font-weight: 600;
+    font-size: 1.15rem;
+    letter-spacing: -0.005em;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .dates {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: var(--ink-soft);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .org {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 14;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin: 0 0 0.85rem 0;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  .role ul, .project ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .role li, .project li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.7rem;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    max-width: 78ch;
+  }
+
+  .role li::before, .project li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* ---------- Projects ---------- */
+
+  .project {
+    margin-bottom: 2.25rem;
+    page-break-inside: auto;
+  }
+
+  .project-header h3 {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 36;
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin: 0;
+    color: var(--ink);
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  .project-header .project-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+
+  .project .stack {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    margin: 0.3rem 0 0.85rem 0;
+    letter-spacing: 0.01em;
+  }
+
+  .project .project-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+
+  .project .project-link a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-faint);
+  }
+
+  .project .project-link a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* ---------- Publications, Education, Certs ---------- */
+
+  .pub {
+    margin-bottom: 1rem;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .pub-title {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 24;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink);
+    margin: 0 0 0.2rem 0;
+  }
+
+  .pub-title a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-faint);
+  }
+
+  .pub-title a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .pub-desc {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: 70ch;
+  }
+
+  .edu, .cert {
+    font-size: 0.95rem;
+  }
+
+  .edu strong, .cert strong {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 24;
+    font-weight: 600;
+  }
+
+  /* ---------- Footer hint (screen only) ---------- */
+
+  footer.download-hint {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  footer.download-hint a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 1px;
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 720px) {
+    :root {
+      --section-indent: 0;
+    }
+    .page { padding: 2.5rem 1.5rem 3rem; }
+    header {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .contact {
+      grid-column: 1;
+      grid-row: 3;
+      text-align: left;
+    }
+    .role-title {
+      grid-row: 2;
+    }
+    section > h2::before {
+      position: static;
+    }
+    .role-header {
+      grid-template-columns: 1fr;
+    }
+    .dates {
+      font-size: 0.7rem;
+    }
+    .tech-grid {
+      grid-template-columns: 1fr;
+      gap: 0.2rem 0;
+    }
+    .tech-grid dt {
+      text-align: left;
+      margin-top: 0.6rem;
+    }
+  }
+
+  /* ---------- Print / PDF ---------- */
+
+  @page {
+    size: letter;
+    margin: 0.6in 0.65in;
+  }
+
+  @media print {
+    body { background: white; font-size: 10.5pt; }
+    .page { padding: 0; max-width: none; }
+    footer.download-hint { display: none; }
+    section { margin-bottom: 1.4rem; }
+    section > h2 { margin-bottom: 0.7rem; font-size: 8pt; }
+    .role { margin-bottom: 1rem; }
+    .project { margin-bottom: 1rem; }
+    .role li, .project li { margin-bottom: 0.35rem; font-size: 9.5pt; line-height: 1.45; }
+    .profile p { font-size: 10pt; line-height: 1.5; margin-bottom: 0.6rem; }
+    h1 { font-size: 28pt; }
+    .role-title { font-size: 11pt; }
+    .role-header h3, .project-header h3 { font-size: 12pt; }
+    .org { font-size: 10pt; margin-bottom: 0.4rem; }
+    .contact { font-size: 8pt; line-height: 1.65; }
+    header { margin-bottom: 1.5rem; padding-bottom: 1rem; }
+    .tech-grid { gap: 0.3rem 1.5rem; }
+    .tech-grid dt, .tech-grid dd { font-size: 9pt; }
+    a { color: var(--ink); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <h1>Brendan Vinson</h1>
+  <div class="role-title">Software &amp; Infrastructure Engineer</div>
+  <address class="contact">
+    <a href="mailto:brendanvinson@icloud.com"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>brendanvinson@icloud.com</a><br>
+    <a href="tel:+13162139220"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>316.213.9220</a><br>
+    <span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 7-8 13-8 13s-8-6-8-13a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Oklahoma City, OK</span><br>
+    <a href="https://github.com/couchcryptid"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.37.5 0 5.78 0 12.292c0 5.211 3.438 9.63 8.205 11.188.6.111.82-.254.82-.567 0-.28-.01-1.022-.015-2.005-3.338.711-4.042-1.582-4.042-1.582-.546-1.361-1.335-1.725-1.335-1.725-1.087-.731.084-.716.084-.716 1.205.082 1.838 1.215 1.838 1.215 1.07 1.803 2.809 1.282 3.495.981.108-.763.417-1.282.76-1.577-2.665-.295-5.466-1.309-5.466-5.827 0-1.287.465-2.339 1.235-3.164-.135-.298-.54-1.497.105-3.121 0 0 1.005-.316 3.3 1.209.96-.262 1.98-.392 3-.398 1.02.006 2.04.136 3 .398 2.28-1.525 3.285-1.209 3.285-1.209.645 1.624.24 2.823.12 3.121.765.825 1.23 1.877 1.23 3.164 0 4.53-2.805 5.527-5.475 5.817.42.354.81 1.077.81 2.182 0 1.578-.015 2.846-.015 3.229 0 .309.21.678.825.56C20.565 21.917 24 17.495 24 12.292 24 5.78 18.627.5 12 .5z"/></svg>github.com/couchcryptid</a>
+  </address>
+</header>
+
+<main>
+
+<section class="profile">
+  <h2>Profile</h2>
+  <p>Software and Infrastructure Engineer with 20 years of experience, including 5 years as the primary cloud infrastructure owner and incident escalation point for a regulated financial institution—replatforming a multi-account AWS environment that two successive contractor teams had built without IaC discipline or governance guardrails, and which had drifted over time into a state leadership assessed as unrecoverable, into a clean FFIEC/GLBA-compliant architecture with mechanical standards enforcement, operated by a 3-person team supporting 50–90 engineers. Sole owner of platform decisions across federated HashiCorp orchestration (Consul, Nomad, Vault), GitLab Enterprise software delivery infrastructure, and a full-stack OpenTelemetry-based observability platform—all designed under strict network isolation constraints with no external network escalation path.</p>
+  <p>Prior to infrastructure, served as founding frontend engineer for a greenfield digital bank product—made stack decisions from zero, introduced React, TypeScript, and GraphQL, and acted as effective tech lead through launch. Deep expertise in Go, Python, and TypeScript service development, Infrastructure as Code (Terraform), and container orchestration (Docker, Nomad, Kubernetes). Designs from first principles, externalizes judgment into repeatable frameworks, and drives reliability through observability-driven monitoring, incident response, and defense-in-depth security. Published author on engineering decision frameworks and AI-augmented development workflows.</p>
+</section>
+
+<section>
+  <h2>Core Technologies</h2>
+  <dl class="tech-grid">
+    <dt>Languages</dt>
+    <dd>Go, Python, TypeScript, JavaScript, Bash, Clojure</dd>
+
+    <dt>Cloud</dt>
+    <dd>AWS (EC2, Lambda, ECS, EKS, S3, RDS, DynamoDB, ElastiCache, OpenSearch, IAM, Control Tower, GuardDuty, KMS, VPC Endpoints, Step Functions, Image Builder)</dd>
+
+    <dt>IaC &amp; Orchestration</dt>
+    <dd>Terraform, CloudFormation, Docker, HashiCorp Nomad, Kubernetes, Helm, EC2 Image Builder</dd>
+
+    <dt>HashiCorp</dt>
+    <dd>Consul (Service Discovery), Vault (Secrets Management with KMS auto-unseal), Nomad (Orchestration, Federated)</dd>
+
+    <dt>Data &amp; APIs</dt>
+    <dd>Kafka, PostgreSQL, MySQL, MariaDB, MongoDB, DynamoDB, Redis, GraphQL (Apollo), REST</dd>
+
+    <dt>Observability</dt>
+    <dd>Grafana, Prometheus, Loki, Tempo, Mimir (LGTM Stack), OpenTelemetry / AWS Distro for OpenTelemetry (ADOT), Structured Logging</dd>
+
+    <dt>CI/CD &amp; DevSecOps</dt>
+    <dd>GitLab CI/CD, GitHub Actions, Shared Pipeline Libraries, SAST, Dependency Scanning, Secret Detection, SCPs, IAM Least-Privilege, CIS-Hardened AMIs</dd>
+
+    <dt>SRE Practices</dt>
+    <dd>Incident Response, Production Alerting (PagerDuty), Observability Design, Post-Mortem Authorship, Failure-Independent Observer Architecture</dd>
+  </dl>
+</section>
+
+<section>
+  <h2>Experience</h2>
+
+  <div class="role">
+    <div class="role-header">
+      <h3>Software Architect</h3>
+      <div class="dates">Dec 2020 — Dec 2025</div>
+    </div>
+    <p class="org">MidFirst Bank · Oklahoma City, OK</p>
+    <ul>
+      <li>Primary infrastructure engineer and incident escalation point on a 3-person team supporting 50–100 engineers across a regulated AWS environment. Inherited a multi-account setup built by two successive external contractor teams without IaC discipline or governance guardrails, which had drifted over time into a state leadership assessed as unrecoverable; owned all implementation decisions across the replatform to a clean, FFIEC/GLBA-compliant, standards-based architecture.</li>
+      <li>Designed the replacement hub-and-spoke AWS Organization (Control Tower, four accounts: management, shared services, stable, prod)—establishing the account topology, network boundaries, and governance model that all subsequent platform work built on.</li>
+      <li>Architected per-account HashiCorp Nomad and Consul clusters across the four-account topology—one Enterprise cluster (shared services) and OSS clusters in the other accounts. Within each account, server tiers ran in a dedicated management VPC and used native namespacing to serve all environments from one set of servers (more cost-effective than per-environment fleets, and structurally cleaner since the servers don't belong to any one environment). Client tiers ran in environment VPCs alongside the workloads they served. Namespaces tied to node pools enforced environment isolation (dev, QA, staging, production), with an additional ops namespace for cross-cutting platform components—Fabio for service routing, the Nomad Autoscaler for node pool capacity, and other workloads that operate across environments rather than within any one of them.</li>
+      <li>Served as primary escalation point for orchestration failures, workload placement issues, and production incidents across all engineering teams—handling triage, severity classification, root-cause identification, and post-incident review.</li>
+      <li>Eliminated external network paths required by bank security policy by redesigning inter-service communication to use VPC Endpoints and internal load balancers—keeping all traffic within the AWS network boundary while preserving connectivity across the hub-and-spoke topology.</li>
+      <li>Centralized HashiCorp Vault Enterprise in shared services with KMS auto-unseal, serving every environment across the four-account topology through namespace isolation enforced at the authentication layer—each environment's workloads authenticate to a separate namespace login with namespace-scoped policies, so token-level reachability is structurally blocked across boundaries. Single source of truth on secrets, single audit trail, single rotation surface. Vault audit logs streamed into the observability platform for compliance evidence.</li>
+      <li>Stood up and operated GitLab Enterprise on AWS from inception: EC2 omnibus deployment with autoscaling Docker runner groups, S3 object storage, ElastiCache Redis, and OpenSearch—all within the isolated VPC boundary. Served as internal SME for pipeline authoring and developer escalations across all engineering teams. Co-authored security scanning frameworks (SAST, dependency scanning, secret detection) and was actively refactoring per-project pipelines into a shared include-based library to reduce maintenance overhead and standardize the security gate as the project catalog grew.</li>
+      <li>Evaluated OSS Grafana, Grafana Cloud, and AWS-native observability against cost and vendor management constraints; deployed the selected LGTM stack (Loki, Grafana, Tempo, Mimir) on EKS in the shared services account, isolated from observed workloads per the principle that observer infrastructure must be failure-independent from what it monitors. Wired the platform through AWS Distro for OpenTelemetry (ADOT) for vendor-neutral metrics, logs, and traces—standardizing instrumentation across services and avoiding lock-in to any single backend.</li>
+      <li>Partnered with Information Security on defense-in-depth across the AWS organization: least-privilege IAM and SCPs, CIS-hardened AMIs via EC2 Image Builder (migrated from Packer to consolidate on Terraform-composable AWS-native primitives), GuardDuty for threat detection and CVE visibility, KMS encryption at rest across all resources, and Security Group enforcement.</li>
+      <li>Built internal platform tooling in Go across both CLIs and AWS Lambda services—including a Vault/Okta SSO RBAC token acquisition CLI using Go channels to handle the asynchronous Okta MFA challenge flow, eliminating manual authentication steps for developer workflows. Also developed event-driven services and utilities in Python, Bash, and TypeScript supporting internal platform tooling—including a Python AWS Step Functions pipeline (migrated from TypeScript for better AWS runtime support) that fetches, resizes, crops, and recolors merchant logos, outputting three retina-sized variants to S3 for CDN delivery.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-header">
+      <h3>Front End Application Developer</h3>
+      <div class="dates">Aug 2018 — Dec 2020</div>
+    </div>
+    <p class="org">MidFirst Bank · Oklahoma City, OK</p>
+    <ul>
+      <li>Founding frontend engineer for a greenfield digital bank product built under a separate brand from MidFirst—first frontend hire, sole initial developer, and effective tech lead through the product's launch.</li>
+      <li>Selected React as the foundational frontend framework based on hiring market depth and ecosystem maturity—evaluated against actual frontend standards rather than internal preference, establishing the foundation for a team that could be hired against.</li>
+      <li>Introduced TypeScript as the team grew, recognizing that type safety was necessary to maintain velocity and correctness as the codebase scaled across multiple developers.</li>
+      <li>Introduced GraphQL (Apollo) in response to a legacy Java API whose structure was forcing deep promise chaining on the client—replacing brittle nested async logic with a clean query layer that decoupled the frontend from backend implementation details.</li>
+      <li>Helped grow and hire the frontend team as the product scaled, transitioning to the Software Architect role as the underlying AWS platform buildout became the organizational priority.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-header">
+      <h3>Software Engineer III</h3>
+      <div class="dates">Oct 2014 — Aug 2018</div>
+    </div>
+    <p class="org">CoreLogic · Norman, OK</p>
+    <ul>
+      <li>Maintained a suite of three interdependent weather data products—a legacy PHP CRM with ecommerce flow for purchasing auto-generated hail, wind, and lightning strike reports; a SOAP API; and an XML-based API—plus a shared library handling cross-cutting concerns (PDF generation, etc.) with blast radius across all three.</li>
+      <li>Redesigned the CRM and map viewer to be mobile-first, including replatforming the map viewer from Leaflet to Google Maps tiles.</li>
+      <li>Built a Node.js server that executed PostGIS spatial queries, generated map geometries via Mapnik, and delivered them as PBF vector tiles to the ecommerce application.</li>
+      <li>Built a Clojure ETL application to migrate lightning strike reports from an XML/MySQL store to a JSON/PostgreSQL store—chose Clojure deliberately based on technical evaluation, not convention.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-header">
+      <h3>Website Manager &amp; Technical Support</h3>
+      <div class="dates">Mar 2010 — Aug 2014</div>
+    </div>
+    <p class="org">Church Leader Insights · Boca Raton, FL</p>
+    <ul>
+      <li>Managed web properties, marketing pages, and CRM (Infusionsoft) for an information marketing company; integrated Amazon S3 for scalable digital product delivery.</li>
+    </ul>
+  </div>
+
+  <div class="role">
+    <div class="role-header">
+      <h3>Lead Web Developer &amp; Technical Support</h3>
+      <div class="dates">May 2005 — May 2009</div>
+    </div>
+    <p class="org">Lifeboat Creative · Wichita, KS</p>
+    <ul>
+      <li>Sole developer for 20+ client websites on a shared VPS under a small but growing shop.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Projects</h2>
+
+  <div class="project">
+    <div class="project-header">
+      <h3>Storm Data Pipeline</h3>
+    </div>
+    <p class="stack">Go · TypeScript · Kafka · PostgreSQL · GraphQL · Kubernetes · Helm · Docker</p>
+    <p class="project-link"><a href="https://github.com/couchcryptid"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.37.5 0 5.78 0 12.292c0 5.211 3.438 9.63 8.205 11.188.6.111.82-.254.82-.567 0-.28-.01-1.022-.015-2.005-3.338.711-4.042-1.582-4.042-1.582-.546-1.361-1.335-1.725-1.335-1.725-1.087-.731.084-.716.084-.716 1.205.082 1.838 1.215 1.838 1.215 1.07 1.803 2.809 1.282 3.495.981.108-.763.417-1.282.76-1.577-2.665-.295-5.466-1.309-5.466-5.827 0-1.287.465-2.339 1.235-3.164-.135-.298-.54-1.497.105-3.121 0 0 1.005-.316 3.3 1.209.96-.262 1.98-.392 3-.398 1.02.006 2.04.136 3 .398 2.28-1.525 3.285-1.209 3.285-1.209.645 1.624.24 2.823.12 3.121.765.825 1.23 1.877 1.23 3.164 0 4.53-2.805 5.527-5.475 5.817.42.354.81 1.077.81 2.182 0 1.578-.015 2.846-.015 3.229 0 .309.21.678.825.56C20.565 21.917 24 17.495 24 12.292 24 5.78 18.627.5 12 .5z"/></svg>github.com/couchcryptid</a></p>
+    <ul>
+      <li>Multi-service weather data processing system across five repositories: TypeScript data collection service (NOAA → Kafka), Go ETL service for data transformation, Go GraphQL API with PostgreSQL persistence and embedded migrations, and a shared Go library.</li>
+      <li>Designed Kafka-based event pipeline with consumer-defined interfaces, domain-pure transformation logic, schema-first GraphQL API with query protection, and structured error handling at each service boundary.</li>
+      <li>Kubernetes deployment packaged as a Helm chart with values-based environment promotion (dev/CI), Strimzi operator for declarative Kafka lifecycle management, namespace-separated infrastructure and application workloads, and an E2E test suite validating data integrity across the full deployed pipeline.</li>
+      <li>Full CI/CD pipeline: golangci-lint (14+ linters), SonarCloud analysis, testcontainers integration tests, semantic versioning, and multi-arch Docker image publishing via GitHub Actions.</li>
+    </ul>
+  </div>
+
+  <div class="project">
+    <div class="project-header">
+      <h3>Kiln / Alloy / Auspex<span class="project-tag">— Deterministic AWS Infrastructure Crawler &amp; Smithy Authority Layer</span></h3>
+    </div>
+    <p class="stack">Go · Smithy IDL (with custom trait extensions) · OpenTofu · Claude Code (agentic development)</p>
+    <ul>
+      <li><strong>Auspex:</strong> deterministic crawler that walks AWS infrastructure and emits idempotent OpenTofu—targeting plan-passing Terraform on the first try, with semantic resource IDs (inferred from tags, naming conventions, security group and subnet placement, IAM relationships) rather than the opaque machine IDs competing tools produce. Tested against a subset of AWS services; actively expanding coverage as Alloy completes.</li>
+      <li>Built hexagonally with pluggable cloud-provider and IaC-emitter ports—AWS and OpenTofu are the current adapters, with additional clouds and IaC targets on the roadmap.</li>
+      <li><strong>Alloy:</strong> Smithy IDL with custom traits and structures, sharded per AWS service into JSON specs that encode the AWS API operation graph as a downward-walkable tree—each operation is a child of the operation that produces its required arguments (ListBuckets → GetBucketEncryption → kms:GetKey for encrypted buckets), making the dependency order a structural property of the spec rather than crawler logic. Auspex lazy-loads service specs as the walk demands them—including cross-service jumps—and drops them once each subtree's discovery completes, keeping memory footprint bounded regardless of account size.</li>
+      <li>The diagnosis Alloy addresses: AWS services have evolved independently and don't follow consistent patterns across the platform, and AWS's published Smithy is itself inconsistent with the live API surface (e.g., S3 bucket naming validation regex permits names AWS itself rejects). Alloy compiles an authoritative layer from the available specifications and tightens validation where the upstream is too loose.</li>
+      <li><strong>Kiln:</strong> template generation pipeline that consumes Alloy to produce both crawler logic and OpenTofu output templates—externalizing inference rules out of Auspex into the spec.</li>
+      <li><strong>Designed (not yet implemented):</strong> LLMOps maintenance workflow triggered by upstream changes (AWS SDK releases, CloudFormation updates, Terraform provider revisions), using an authority matrix across AWS API, Smithy, Terraform docs, and CloudFormation as source-of-truth inputs to draft Alloy spec PRs for human review.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Publications</h2>
+  <div class="pub">
+    <p class="pub-title"><a href="https://www.linkedin.com/pulse/better-living-through-static-analysis-brendan-vinson-8brpc/">Better Living through Static Analysis<svg class="icon icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></p>
+    <p class="pub-desc">Engineering decision frameworks, AI-augmented verification workflows, and externalizing judgment into repeatable systems.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Education</h2>
+  <p class="edu"><strong>Cowley County Community College</strong> — Associate's Degree, Web Design, 2010–2014</p>
+</section>
+
+<section>
+  <h2>Certifications</h2>
+  <p class="cert">Pursuing <strong>Certified Kubernetes Administrator</strong> (CKA)</p>
+</section>
+
+</main>
+
+<footer class="download-hint">
+  <a href="resume.pdf" download>Download résumé as PDF</a>
+</footer>
+
+</div>
+</body>
+</html>
