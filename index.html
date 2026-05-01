@@ -614,7 +614,7 @@
       <li>Multi-service weather data processing system across five repositories: TypeScript data collection service (NOAA → Kafka), Go ETL service for data transformation, Go GraphQL API with PostgreSQL persistence and embedded migrations, and a shared Go library.</li>
       <li>Designed Kafka-based event pipeline with consumer-defined interfaces, domain-pure transformation logic, schema-first GraphQL API with query protection, and structured error handling at each service boundary.</li>
       <li>Kubernetes deployment packaged as a Helm chart with values-based environment promotion (dev/CI), Strimzi operator for declarative Kafka lifecycle management, namespace-separated infrastructure and application workloads, and an E2E test suite validating data integrity across the full deployed pipeline.</li>
-      <li>Full CI/CD pipeline: golangci-lint (14+ linters), SonarCloud analysis, testcontainers integration tests, semantic versioning, and multi-arch Docker image publishing via GitHub Actions.</li>
+      <li>Full CI/CD pipeline: golangci-lint, SonarCloud analysis, testcontainers integration tests, semantic versioning, and multi-arch Docker image publishing via GitHub Actions.</li>
     </ul>
   </div>
 
