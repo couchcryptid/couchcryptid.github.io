@@ -761,32 +761,55 @@
     var STORAGE_KEY = 'theme';
     var root = document.documentElement;
     var swatches = document.querySelectorAll('.theme-swatch');
+    var darkMq = window.matchMedia('(prefers-color-scheme: dark)');
+
+    function stored() {
+      try {
+        var v = localStorage.getItem(STORAGE_KEY);
+        return (v === 'light' || v === 'dark') ? v : null;
+      } catch (e) { return null; }
+    }
+
+    function effective() {
+      return stored() || (darkMq.matches ? 'dark' : 'light');
+    }
 
     function reflect() {
-      var current = null;
-      try { current = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+      var eff = effective();
       swatches.forEach(function (b) {
-        b.setAttribute('aria-pressed', b.dataset.theme === current ? 'true' : 'false');
+        b.setAttribute('aria-pressed', b.dataset.theme === eff ? 'true' : 'false');
       });
     }
 
     swatches.forEach(function (b) {
       b.addEventListener('click', function () {
         var theme = b.dataset.theme;
-        var current = null;
-        try { current = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+        var s = stored();
+        var eff = effective();
 
-        if (current === theme) {
-          // Click active swatch -> clear, back to system auto
-          try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
-          root.removeAttribute('data-theme');
+        if (theme === eff) {
+          // Clicked the active swatch
+          if (s) {
+            // Was explicit -> clear, back to auto
+            try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+            root.removeAttribute('data-theme');
+          }
+          // else: auto already matches, no-op
         } else {
+          // Switch to clicked theme explicitly
           try { localStorage.setItem(STORAGE_KEY, theme); } catch (e) {}
           root.setAttribute('data-theme', theme);
         }
         reflect();
       });
     });
+
+    // Update indicator if OS theme changes while in auto mode
+    if (darkMq.addEventListener) {
+      darkMq.addEventListener('change', reflect);
+    } else if (darkMq.addListener) {
+      darkMq.addListener(reflect);
+    }
 
     reflect();
   })();
