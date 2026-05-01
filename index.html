@@ -3,6 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'light' || t === 'dark') {
+        document.documentElement.setAttribute('data-theme', t);
+      }
+    } catch (e) {}
+  })();
+</script>
 <title>Brendan Vinson — Software &amp; Infrastructure Engineer</title>
 <meta name="description" content="Software and Infrastructure Engineer. AWS, Terraform, HashiCorp, Go. Oklahoma City, open to remote US roles.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,6 +30,30 @@
     --rule: #d9cfbe;
     --rule-soft: #ebe3d2;
     --section-indent: 2.25rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+      --paper: #1a1612;
+      --paper-deep: #221d17;
+      --ink: #ede4d2;
+      --ink-soft: #a89a85;
+      --ink-faint: #8a7d68;
+      --accent: #e07a55;
+      --rule: #3a3328;
+      --rule-soft: #2a241c;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #1a1612;
+    --paper-deep: #221d17;
+    --ink: #ede4d2;
+    --ink-soft: #a89a85;
+    --ink-faint: #8a7d68;
+    --accent: #e07a55;
+    --rule: #3a3328;
+    --rule-soft: #2a241c;
   }
 
   * { box-sizing: border-box; }
@@ -39,6 +74,7 @@
     max-width: 880px;
     margin: 0 auto;
     padding: 4rem 3.5rem 5rem;
+    position: relative;
   }
 
   /* ---------- Header ---------- */
@@ -413,6 +449,7 @@
       --section-indent: 0;
     }
     .page { padding: 2.5rem 1.5rem 3rem; }
+    .theme-toggle { right: 1.5rem; }
     header {
       grid-template-columns: 1fr;
       gap: 1rem;
@@ -452,9 +489,20 @@
   }
 
   @media print {
+    :root {
+      --paper: #faf6ee !important;
+      --paper-deep: #f3ecde !important;
+      --ink: #1f1a14 !important;
+      --ink-soft: #6b5e4f !important;
+      --ink-faint: #7a6c54 !important;
+      --accent: #b8431f !important;
+      --rule: #d9cfbe !important;
+      --rule-soft: #ebe3d2 !important;
+    }
     body { background: white; font-size: 10.5pt; }
     .page { padding: 0; max-width: none; }
     footer.download-hint { display: none; }
+    .theme-toggle { display: none; }
     section { margin-bottom: 1.4rem; }
     section > h2 { margin-bottom: 0.7rem; font-size: 8pt; }
     .role { margin-bottom: 1rem; }
@@ -471,10 +519,58 @@
     .tech-grid dt, .tech-grid dd { font-size: 9pt; }
     a { color: var(--ink); }
   }
+
+  /* ---------- Theme toggle ---------- */
+
+  .theme-toggle {
+    position: absolute;
+    top: 1.5rem;
+    right: 3.5rem;
+    display: flex;
+    gap: 0.4rem;
+    z-index: 10;
+  }
+
+  .theme-swatch {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 4px;
+    border: 1px solid var(--ink-faint);
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .theme-swatch[data-theme="light"] { background: #faf6ee; }
+  .theme-swatch[data-theme="dark"]  { background: #1a1612; }
+
+  .theme-swatch:hover {
+    transform: scale(1.1);
+    border-color: var(--accent);
+  }
+
+  .theme-swatch:focus {
+    outline: none;
+  }
+
+  .theme-swatch:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .theme-swatch[aria-pressed="true"] {
+    box-shadow: 0 0 0 2px var(--paper), 0 0 0 3px var(--accent);
+  }
 </style>
 </head>
 <body>
 <div class="page">
+
+<div class="theme-toggle" role="group" aria-label="Color theme">
+  <button type="button" class="theme-swatch" data-theme="light" aria-label="Light theme" aria-pressed="false"></button>
+  <button type="button" class="theme-swatch" data-theme="dark" aria-label="Dark theme" aria-pressed="false"></button>
+</div>
 
 <header>
   <h1>Brendan Vinson</h1>
@@ -660,5 +756,40 @@
 </footer>
 
 </div>
+<script>
+  (function () {
+    var STORAGE_KEY = 'theme';
+    var root = document.documentElement;
+    var swatches = document.querySelectorAll('.theme-swatch');
+
+    function reflect() {
+      var current = null;
+      try { current = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+      swatches.forEach(function (b) {
+        b.setAttribute('aria-pressed', b.dataset.theme === current ? 'true' : 'false');
+      });
+    }
+
+    swatches.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var theme = b.dataset.theme;
+        var current = null;
+        try { current = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+
+        if (current === theme) {
+          // Click active swatch -> clear, back to system auto
+          try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+          root.removeAttribute('data-theme');
+        } else {
+          try { localStorage.setItem(STORAGE_KEY, theme); } catch (e) {}
+          root.setAttribute('data-theme', theme);
+        }
+        reflect();
+      });
+    });
+
+    reflect();
+  })();
+</script>
 </body>
 </html>
